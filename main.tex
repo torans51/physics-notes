@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{mathtools}
-\usepackage[a4paper,top=20mm,bottom=15mm]{geometry}
+\usepackage[a4paper,top=20mm,bottom=20mm]{geometry}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{calc,patterns,angles,quotes}
@@ -33,6 +33,7 @@ e specializziamole per le componenti $x$ e $y$.
 \end{equation}
 
 \subsection{Proiettile lanciato con velocità orizzontale}
+TODO
 
 \subsection{Proiettile lanciato dal suolo con velocità obliqua}
 \begin{center}
@@ -60,7 +61,7 @@ Dalla scelta del SDR riportato in figura otteniamo le seguenti espressioni dei v
   \Vec{g} &= (0, -g)
 \end{align}
 
-Quindi le equazioni che descrivono il moto \ref{2dgeneric} diventano
+Quindi le equazioni \ref{2dgeneric} che descrivono il moto diventano
 \begin{equation}
   \begin{dcases}
     x = v_{0x} t \\
@@ -89,6 +90,9 @@ Sostituendo questo tempo nelle equazioni per la posizione lungo $x$ e lungo $y$ 
 \end{align}
 
 \subsubsection{Extra - Traiettoria simmetrica rispetto all'asse $x=x_m$}
+\textbf{\textit{Disclaimer}} - La seguente trattazione è da considerarsi un argomento \textbf{molto} complicato per studenti liceali del biennio.
+\vspace{10pt}
+
 Intuitivamente possiamo affermare che la traiettoria sia simmetrica alla retta $x=x_m$, tuttavia la dimostrazione formale richiede la conoscenza di alcune nozioni di base di matematica.
 
 \textbf{\textit{Primo metodo - equazione della parabola}}
@@ -122,10 +126,77 @@ Per rendere evidente la simmetria rispetto a $x=x_m$ è necessario fare alcune m
     &= -\frac{1}{2}\frac{g}{v_{0x}^2} (x-x_m)^2 + h_{max}
 \end{align}
 
+Una conoscenza di base dell'equazione di una parabola e di traslazioni sul piano noterà subito che l'equazione ottenuta è l'equazione di una parabola traslata lungo l'asse $x$ di $x_m$ e lungo l'asse $y$ di $h_{max}$.
+
+Da questa equazione è inoltre evidente la simmetria lungo la retta identificata dall'equazione $x_m$. Per espicitare questo fatto consideriamo una quantità $\Delta x$ positiva e valutiamo i valori di $y$ lungo i seguenti punti
+\begin{align}
+  x_1 &= x_m + \Delta x \\
+  x_2 &= x_m - \Delta x
+\end{align}
+
+sostituendo otteniamo
+\begin{align}
+  x_1 &= x_m + \Delta x \qquad \Rightarrow \qquad y_1 = -\frac{1}{2}\frac{g}{v_{0x}^2} \Delta x^2 + h_{max} \\
+  x_2 &= x_m - \Delta x \qquad \Rightarrow \qquad y_2 = -\frac{1}{2}\frac{g}{v_{0x}^2} \Delta x^2 + h_{max}
+\end{align}
+
+Quindi per 2 punti distanti $\Delta x$ dal punto $x_m$ otteniamo lo stesso valore di $y$ che è proprio la definizione di figura simmetrica rispetto all'asse $x=x_m$.
+
+\textbf{\textit{Secondo metodo - studio delle coordinate intorno al tempo $t_m$}}
+\newline
+La strategia che useremo sarà quella di valore la posizione lungo $x$ e lungo $y$ del proiettile vicino al tempo in cui il proiettile raggiunge la massima altezza $t_m \pm \Delta t$. Così facendo ci aspettiamo che la posizione lungo $x$ sia pari a $x_m \pm \Delta x$ e la posizione lungo $y$ sia la stessa.
+
+Consideriamo quindi 2 tempi
+\begin{align}
+  t_1 &= t_m + \Delta t \qquad \text{\textit{tempo successivo a $t_m$}} \\
+  t_2 &= t_m - \Delta t \qquad \text{\textit{tempo antecedente a $t_m$}}
+\end{align}
+e sostituiamo questi valori nell'equazione che descrive la posizione del proiettile lungo $x$
+\begin{align}
+  t_1 &= t_m + \Delta t \qquad \Rightarrow \qquad x_1 = v_{0x} t_m + v_{0x} \Delta t\\
+  t_2 &= t_m - \Delta t \qquad \Rightarrow \qquad x_2 = v_{0x} t_m - v_{0x} \Delta t
+\end{align}
+Da cui deduciamo che prima e dopo $t_m$ il valore della posizione $v_{0x}t_m$ più o meno lo stesso valore.
+
+Vediamo adesso cosa succede alla coordinata $y$ in questi 2 tempi
+\begin{align}
+  t_1 &= t_m + \Delta t \qquad \Rightarrow \qquad y_1 = v_{0y} (t_m + \Delta t) - \frac{1}{2}g(t_m + \Delta t)^2 \\
+  t_2 &= t_m - \Delta t \qquad \Rightarrow \qquad y_2 = v_{0y} (t_m - \Delta t) - \frac{1}{2}g(t_m - \Delta t)^2
+\end{align}
+
+Dobbiamo adesso svolgere qualche calcolo algebrico su $y_1$ e $y_2$ per determinare se $y_1 = y_2$
+\begin{align}
+  y_1 &= v_{0y} (t_m + \Delta t) - \frac{1}{2}g(t_m + \Delta t)^2 \\
+      &= v_{0y} t_m + v_{0y} \Delta t - \frac{1}{2}g (t_m^2 + 2 t_m \Delta t + \Delta t^2) \qquad \text{\textit{ricordiamo che $t_m = \frac{v_{0y}}{g}$}} \\
+      &= v_{0y} \frac{v_{0y}}{g} + v_{0y} \Delta t - \frac{1}{2}g \left[\left(\frac{v_{0y}}{g}\right)^2 + 2 \left(\frac{v_{0y}}{g}\right) \Delta t + \Delta t^2\right] \\
+      &= \frac{v_{0y}^2}{g} + v_{0y} \Delta t - \frac{1}{2} \frac{v_{0y}^2}{g} - v_{0y} \Delta t - \frac{1}{2}g \Delta t ^2 \\
+      &= \frac{1}{2} \frac{v_{0y}^2}{g} - \frac{1}{2}g \Delta t ^2
+\end{align}
+
+Ripetiamo dei passaggi analoghi anche per $y_2$
+\begin{align}
+  y_2 &= v_{0y} (t_m - \Delta t) - \frac{1}{2}g(t_m - \Delta t)^2 \\
+      &= v_{0y} t_m - v_{0y} \Delta t - \frac{1}{2}g (t_m^2 - 2 t_m \Delta t + \Delta t^2) \qquad \text{\textit{ricordiamo che $t_m = \frac{v_{0y}}{g}$}} \\
+      &= v_{0y} \frac{v_{0y}}{g} - v_{0y} \Delta t - \frac{1}{2}g \left[\left(\frac{v_{0y}}{g}\right)^2 - 2 \left(\frac{v_{0y}}{g}\right) \Delta t + \Delta t^2\right] \\
+      &= \frac{v_{0y}^2}{g} - v_{0y} \Delta t - \frac{1}{2} \frac{v_{0y}^2}{g} + v_{0y} \Delta t - \frac{1}{2}g \Delta t ^2 \\
+      &= \frac{1}{2} \frac{v_{0y}^2}{g} - \frac{1}{2}g \Delta t ^2
+\end{align}
+
+Abbiamo quindi verificato che
+\begin{align}
+  t_1 &= t_m + \Delta t 
+  \quad \Rightarrow \quad x_1 = v_{0x} t_m + v_{0x} \Delta t
+  \quad \Rightarrow \quad y_1 = \frac{1}{2} \frac{v_{0y}^2}{g} - \frac{1}{2}g \Delta t ^2 \\
+  t_2 &= t_m - \Delta t 
+  \quad \Rightarrow \quad x_2 = v_{0x} t_m - v_{0x} \Delta t
+  \quad \Rightarrow \quad y_2 = \frac{1}{2} \frac{v_{0y}^2}{g} - \frac{1}{2}g \Delta t ^2
+\end{align}
+cioè che per un tempo antecendente e successivo a $t_m$ della stessa quantità $\Delta t$ il valore della posizione è pari a $v_{0x}t_m \pm v_{0x} \Delta t$ mentre il valore della $y$ è lo stesso. Abbiamo quindi verificato la condizione di simmetria rispetto al tempo $t_m$ e di conseguenza la simmetria della traiettoria rispetto all'asse $x=x_m$. 
+
 \newpage
 \section{FTE green - Edizione Sei}
 \subsection{Esercizio 95 - pagina 290}
-Un gatto vuole salire su una mensola che si trova a $1.80m$ di altezza. I suoi muscoli gli consentono di esercitare un'accelerazione di $40m/s^2$ mentre percorre i primi $30cm$ in verticale. Riesce ad arrivare alla mensola? \footnote{Svolto in classe il giorno 25/10/2024}
+Un gatto vuole salire su una mensola che si trova a $1.80m$ di altezza. I suoi muscoli gli consentono di esercitare un'accelerazione di $40m/s^2$ mentre percorre i primi $30cm$ in verticale. Riesce ad arrivare alla mensola?
 
 \subsubsection{Soluzione}
 
