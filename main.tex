@@ -1,0 +1,351 @@
+\documentclass{article}
+\usepackage{mathtools}
+\usepackage[a4paper,top=20mm,bottom=15mm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc,patterns,angles,quotes}
+
+\begin{document}
+
+\tableofcontents
+\newpage
+
+\section{Moto parabolico}
+Per studiare il moto parabolico dobbiamo analizzare le equazioni che descrivono il moto di un punto materiale soggetto a un'accelerazione costante in 2 dimensioni.
+Per fare ciò consideriamo la legge oraria e l'equazione che descrive la variazione di velocità nel tempo 
+
+\begin{align}
+  s &= s_0 + v_0 (t-t_0) + \frac{1}{2}a(t-t_0)^2 \\
+  v &= v_0 + a(t-t_0)
+\end{align}
+e specializziamole per le componenti $x$ e $y$.
+
+\begin{equation} \label{2dgeneric}
+  \begin{dcases}
+    x = x_{0x} + v_{0x} (t-t_0) + \frac{1}{2}a_x(t-t_0)^2 \\
+    v_x = v_{0x} + a_x(t-t_0)
+  \end{dcases}
+  \qquad
+  \begin{dcases}
+    y = y_{0y} + v_{0y} (t-t_0) + \frac{1}{2}a_y(t-t_0)^2 \\
+    v_y = v_{0y} + a_y(t-t_0)
+  \end{dcases}
+\end{equation}
+
+\subsection{Proiettile lanciato con velocità orizzontale}
+
+\subsection{Proiettile lanciato dal suolo con velocità obliqua}
+\begin{center}
+  \begin{tikzpicture}
+    \coordinate (orig) at (0,0);
+
+    \draw[thick,->] (orig) -- (8,0) node (xaxis) [anchor=north] {$x$};
+    \draw[thick,->] (orig) -- (0,4) node (yaxis) [anchor=east] {$y$};
+    \draw[line width=1pt,-stealth](0,0)--(1,1.8) node (v0) [anchor=south west]{$\Vec{v}_0$};
+    \draw[line width=1pt,-stealth](6,3)--(6,2) node[anchor=south west]{$\Vec{g}$};
+    \draw[line width=1pt, dotted] plot[smooth,domain=0:6] (\x, {-0.3*\x*(\x-6)});
+    \pic [draw, ->, "$\alpha$", angle eccentricity=1.5] {angle = xaxis--orig--v0};
+
+    \node at (3, 0) {\textbullet};
+    \node at (3, 0) [anchor=north] {$x_m$};
+
+    \node at (0, 2.7) {\textbullet};
+    \node at (0, 2.7) [anchor=east] {$h_{max}$};
+  \end{tikzpicture}
+\end{center}
+
+Dalla scelta del SDR riportato in figura otteniamo le seguenti espressioni dei vettori $\Vec{v}_0$ e $\Vec{g}$ in coordinate
+\begin{align}
+  \Vec{v}_0 &= (v_0 \cos \alpha, v_0 \sin \alpha)\\
+  \Vec{g} &= (0, -g)
+\end{align}
+
+Quindi le equazioni che descrivono il moto \ref{2dgeneric} diventano
+\begin{equation}
+  \begin{dcases}
+    x = v_{0x} t \\
+    v_x = v_{0x}
+  \end{dcases}
+  \qquad
+  \begin{dcases}
+    y = v_{0y} t - \frac{1}{2}gt^2 \\
+    v_y = v_{0y} - gt
+  \end{dcases}
+\end{equation}
+
+Dalle quali notiamo che il moto lungo la componente $x$ è un moto rettilineo uniforme perché lungo quella componente non c'è accelerazione.
+
+Il punto di massima altezza è caratterizzato dalla condizione che $v_y =0$. Dalle equazioni possiamo ricavare il tempo in cui raggiunge quel punto e determinare le coordinate $x$ e $y$.
+Se denotiamo con $t_m$ il tempo in cui raggiunge la massima altezza abbiamo
+\begin{equation}
+  0 = v_{0y} -gt_m \quad\Rightarrow\quad t_m = \frac{v_{0y}}{g}
+\end{equation}
+Notiamo che il tempo che impiega per raggiungere la massima altezza non dipende da ciò che succede lungo la componente $x$ ma solo dalla velocità iniziale lungo $y$ e dall'accelerazione di gravità anch'essa diretta lungo $y$.
+
+Sostituendo questo tempo nelle equazioni per la posizione lungo $x$ e lungo $y$ e dopo qualche passaggio algebrico abbiamo che
+\begin{align}
+  x_m &= \frac{v_{0x}v_{0y}}{g} \\
+  h_{max} &= \frac{1}{2}\frac{v_{0y}^2}{g}
+\end{align}
+
+\subsubsection{Extra - Traiettoria simmetrica rispetto all'asse $x=x_m$}
+Intuitivamente possiamo affermare che la traiettoria sia simmetrica alla retta $x=x_m$, tuttavia la dimostrazione formale richiede la conoscenza di alcune nozioni di base di matematica.
+
+\textbf{\textit{Primo metodo - equazione della parabola}}
+\newline
+Dalle equazioni che descrivono la posizione del punto (legge orarie per $x$ e per $y$) possiamo ottenere un'unica equazione e scrivere la coordinata $y$ del punto in funzione della coordinata $x$ del punto e delle altre quantità che fisiche del caso (gravità e velocità iniziale).
+\begin{equation}
+  \begin{dcases}
+    t = \frac{x}{v_{0x}}\\
+    y = v_{0y} t - \frac{1}{2}gt^2
+  \end{dcases}
+  \quad\Rightarrow\quad
+  \begin{dcases}
+    t = \frac{x}{v_{0x}}\\
+    y = \frac{v_{0y}}{v_{0x}} x - \frac{1}{2}\frac{g}{v_{0x}^2}x^2
+  \end{dcases}
+\end{equation}
+
+Dall'ultima equazione notiamo che $y$ scritto in funzione di $x$ rappresenta proprio l'equazione di una parabola "rivolta verso il basso" dato che il coefficiente del termine $x^2$ è neggativo.
+Inoltre sappiamo che una parabola è simmetrica rispetto all'asse che passa per il suo vertice tuttavia non è ancora evidente dall'equazione che il vertice abbia coordinata $x=x_m$.
+
+Per rendere evidente la simmetria rispetto a $x=x_m$ è necessario fare alcune manipolazioni algebriche. Cominciamo raccogliendo tutto il coefficiente di $x^2$
+\begin{align}
+  y &= \frac{v_{0y}}{v_{0x}} x - \frac{1}{2}\frac{g}{v_{0x}^2}x^2 \\
+    &= -\frac{1}{2}\frac{g}{v_{0x}^2} \left(-2\frac{v_{0x}^2}{g}\frac{v_{0y}}{v_{0x}}x + x^2\right) \\
+    &= -\frac{1}{2}\frac{g}{v_{0x}^2} \left(-2\frac{v_{0x}v_{0y}}{g}x + x^2\right) \qquad\text{\textit{notiamo che $x_m=\frac{v_{0x}v_{0y}}{g}$}} \\
+    &= -\frac{1}{2}\frac{g}{v_{0x}^2} \left(-2x_mx + x^2\right) \qquad \text{\textit{completiamo il quadrato}} \\
+    &= -\frac{1}{2}\frac{g}{v_{0x}^2} \left(-x_m^2 + x_m^2 -2x_mx + x^2\right) \\
+    &= -\frac{1}{2}\frac{g}{v_{0x}^2} \left[-x_m^2 + (x-x_m)^2\right] \\
+    &= -\frac{1}{2}\frac{g}{v_{0x}^2} (x-x_m)^2 + \frac{1}{2}\frac{g}{v_{0x}^2}x_m^2 \\
+    &= -\frac{1}{2}\frac{g}{v_{0x}^2} (x-x_m)^2 + \frac{1}{2}\frac{g}{v_{0x}^2}\left(\frac{v_{0x}v_{0y}}{g}\right)^2 \\
+    &= -\frac{1}{2}\frac{g}{v_{0x}^2} (x-x_m)^2 + h_{max}
+\end{align}
+
+\newpage
+\section{FTE green - Edizione Sei}
+\subsection{Esercizio 95 - pagina 290}
+Un gatto vuole salire su una mensola che si trova a $1.80m$ di altezza. I suoi muscoli gli consentono di esercitare un'accelerazione di $40m/s^2$ mentre percorre i primi $30cm$ in verticale. Riesce ad arrivare alla mensola? \footnote{Svolto in classe il giorno 25/10/2024}
+
+\subsubsection{Soluzione}
+
+Possiamo suddividere il moto del gatto in 2 fasi: nella prima fase si considera un'accelerazione costante verso l'alto, mentre nella seconda fase (dopo i primi $30cm$ in verticale) si considera l'accelerazione di gravità verso il basso. 
+
+La strategia per risolvere l'esercizio è quella di determinare la velocità del gatto alla fine dei primi $30cm$ in altezza e determinare l'altezza massima che riesce a raggiungere con quella velocità e con l'accelerazione di gravità che lo rallenta imponendo che la velocità finale sia zero. A questo punto confronteremo l'altezza ottenuta con l'altezza della mensola per rispondere alla domanda "Riesce ad arrivare alla mensola?".
+
+Chiamiamo $h=1.80m$ l'altezza della mensola e $h_1=0.30m$ l'altezza in cui i muscoli del gatto esercitano l'accelerazione $a_G=40m/s^2$.
+
+Per la prima fase possiamo scrivere:
+\begin{align}
+  S_1 &= \frac{1}{2}a_G t^2 \qquad\text{\textit{legge oraria}} \\
+  v_1 &= a_G t \qquad\text{\textit{velocità al variare del tempo}} \label{v1t}
+\end{align}
+
+Nello scrivere queste equazioni stiamo implicitamento considerando un opportuno SDR in cui la posizione iniziale, la velocità iniziale e il tempo iniziale sono uguali a zero. Notiamo inoltre che al variare del tempo la velocità aumenta e questo fatto è consistente con la situazione fisica che stiamo considerando (il gatto parte da fermo e accelera).
+
+Il nostro intento è quello di determinare la velocità del gatto quando finisce la prima fase però non conosciamo il tempo che ci impiega per completare la fase in considerazione. Tuttavia sappiamo che alla fine della seconda fase raggiunge $h_1$ quindi dalla legge oraria possiamo ricavare questo tempo.
+
+Indichiamo con $t^\prime$ il tempo in cui la posizione del gatto è $S_1 = h_1$
+\begin{equation}
+  h_1 = \frac{1}{2}a_G t^{\prime 2}
+\end{equation}
+Dalla quale otteniamo\footnote{Stiamo ignorando la soluzione con il segno meno perché non ha senso fisico.}
+\begin{equation}
+  t^\prime = \sqrt{\frac{2h_1}{a_G}}
+\end{equation}
+
+Adesso conosciamo il tempo che il gatto impiega per completare la prima fase poiché tutte le quantità che compaiono sono dati del problema. Con questo tempo possiamo ricavare la velocità del gatto alla fine della prima fase e la indichiamo con $v^\prime_1$. Sostituendo nell'equazione (\ref{v1t})
+\begin{equation}\label{v1final}
+  v^\prime_1 = a_G \sqrt{\frac{2h_1}{a_G}} = \sqrt{2h_1 a_G}
+\end{equation}
+
+Adesso consideriamo la seconda fase sapendo che la posizione iniziale è $h_1$ e la velocità finale della prima fase, ovvero (\ref{v1final})
+\begin{align}
+  S_2 &= h_1 + v^\prime_1 t - \frac{1}{2}g t^2 \qquad\text{\textit{legge oraria}} \\
+  v_2 &=v^\prime_1 - g t \qquad\text{\textit{velocità al variare del tempo}} \label{v2t}
+\end{align}
+
+Nello scrivere queste ultime equazioni abbiamo introdotto l'accelerazione di gravità $g$. Siccome consideriamo $g=9.8m/2$ positiva nonostante sia opposta all'accelerazione iniziale abbiamo introdotto un segno meno. L'equazioni così scritte sono consistenti con la situazione fisica in esame poiché al variare del tempo la velocità diminuisce\footnote{Avremmo potuto evitare di introdurre il segno meno e considerare $g=-9.8m/s^2$.}. 
+
+Adesso vogliamo determinare l'altezza massima che il gatto riesce a raggiungere con quella velocità iniziale. Per determinare questa quantità sappiamo che il gatto avrà una velocità pari a zero quando raggiungerà la sua altezza massima. Imponiamo quindi che $v_2=0$ nell'equazione (\ref{v2t})
+\begin{equation}
+  0 = v^\prime_1 -gt 
+\end{equation}
+Da questa possiamo ricavare il tempo che impiega per raggiungere l'altezza massima e che indichiamo con $t^{\prime\prime}$
+\begin{equation}
+  t^{\prime\prime} = \frac{v^\prime_1}{g}
+\end{equation}
+Adesso sostiamo questo tempo nella legge oraria per ottenere l'altezza massima $h_{max}$
+\begin{align}
+  h_{max} &= h_1 + v^\prime_1 t^{\prime\prime} - \frac{1}{2}g t^{\prime\prime2} \\
+          &= h_1 + v^\prime_1 \left(\frac{v^\prime_1}{g}\right) - \frac{1}{2}g \left(\frac{v^\prime_1}{g}\right)^2 \\
+          &= h_1 + \sqrt{2h_1 a_G} \left(\frac{\sqrt{2h_1 a_G}}{g}\right) - \frac{1}{2}g \left(\frac{\sqrt{2h_1 a_G}}{g}\right)^2 \\
+          &= h_1 + \frac{2h_1 a_G}{g} - \frac{1}{2} \frac{2h_1 a_G}{g} \\
+          &= h_1 + h_1 \frac{a_G}{g} \\
+          &= h_1\left(1+\frac{a_G}{g}\right) \label{final}
+\end{align}
+
+Sostituendo i numeri otteniamo che $h_{max} = 1.52m$, quindi il gatto non riesce a raggiungere la mensola visto che $h_{max} < h$.
+
+\subsubsection*{Extra}
+
+Potremmo adesso chiederci qual è l'accelerazione minima che il gatto deve esercitare nella prima fase affinché riesca a raggiungere la mensola.
+Per fare ciò possiamo imporre che $h_{max}=h$ e ricavare $a_G$ da (\ref{final})
+\begin{align}
+  h &= h_1\left(1+\frac{a_G}{g}\right) \\
+  \frac{h}{h_1} &= 1+\frac{a_G}{g} \\
+  \frac{a_G}{g} &= \frac{h}{h_1} -1 \\
+  a_G &= g \left(\frac{h}{h_1} -1\right) \\
+\end{align}
+
+Da notare che questa equazione ha senso solo se $0 < h_1 \le h$. Infatti se $h_1 >$ non ha nemmeno senso porsi la domanda dell'esercizio visto che i muscoli del gatto riescono ad esercitare un'accelerazione costante per un'altezza superiore a quella della mensola.
+
+Un'altra cosa che potremmo chiederci è l'altezza minima $h_1$ per la quale dovrebbe agire $a_G$ affinché il gatto riesca a raggiungere la mensola. Il ragionamento è simile al precedente soltanto che stavolta consideriamo $a_G$ uguale al dato del problema e isoliamo $h_1$
+\begin{align}
+  h &= h_1\left(1+\frac{a_G}{g}\right) \\
+  h_1 &= h \frac{1}{\left(1+\frac{a_G}{g}\right)} \\
+  h_1 &= h \frac{g}{g+a_G}
+\end{align}
+
+Sostituendo i numeri otteniamo che $h_1=0.35m$.
+
+\newpage
+\section{Esercizi extra}
+
+\subsection{Esercizio sul MRUA con 4 differenti fasi}
+Considera un punto materiale che attraversa le seguenti fasi e che parte con una velocità iniziale di $10m/s$. 
+Nella prima fase ha un'accelerazione costante pari a $5m/s^2$ e la mantiene per $2s$. Nella seconda fase l'accelerazione passa a $3m/s^2$ per $6s$. Nella terza fase "frena" con un'accelerazione pari a $1m/s^2$ per $5s$. Infine nell'ultima fase si muove di moto rettilineo uniforme per $10s$.
+\begin{enumerate}
+  \item Determina le velocità iniziali e finali di ciascuna fase
+  \item Determina lo spostamento totale dal punto materiale (differenza fra la posizione finale e la posizione iniziale)
+\end{enumerate}
+
+\subsubsection{Soluzione}
+
+Assegniamo dei nomi ai dati del problema per evitare di riscrivere ogni volta i numeri con le loro unità di misura. 
+\begin{align}
+  & a_1, \Delta t_1, v_{1i}, v_{1f} \qquad \text{\textit{acc., durata, vel. iniziale e finale della fase 1}} \\
+  & a_2, \Delta t_2, v_{2i}, v_{2f} \qquad \text{\textit{acc., durata, vel. iniziale e finale della fase 2}} \\
+  & a_3, \Delta t_3, v_{3i}, v_{3f} \qquad \text{\textit{acc., durata, vel. iniziale e finale della fase 3}} \\
+  & a_4, \Delta t_4, v_{4i}, v_{4f} \qquad \text{\textit{acc., durata, vel. iniziale e finale della fase 4}}
+\end{align}
+
+È importante notare che alcune di queste quantità sono uguali: ad esempio la velocità finale della fase 1 è uguale alla velocità iniziale della fase 2 $v_{1f}=v_{2i}$ e così via. Inoltre sappiamo che l'accelerazione nella fase 4 è zero ne consegue che $v_{4i}=v_{4f}$.
+In particolare possiamo scrivere le seguenti equivalenze
+\begin{align}
+  v_{1f} &= v_{2i} \\
+  v_{2f} &= v_{3i} \\
+  v_{3f} &= v_{4i} \\
+  v_{4f} &= v_{4i} \\
+\end{align}
+
+Per svolgere il primo punto dell'esercizio basta ricordare l'equazione che descrive la variazione di velocità al variare del tempo
+\begin{equation}
+  v = v_0 + a (t-t_0)
+\end{equation}
+
+Questa relazione permette di determinare quale sarà la velocità di un oggetto che parte con una velocità iniziale $v_0$ sottoposto a un'accelerazione $a$ per un lasso di tempo $t-t_0$.
+
+Ne consegue che per le 4 fasi potremmo scrivere
+\begin{align}
+  v_{1f} &= v_{1i} + a_1 \Delta t_1 \\
+  v_{2f} &= v_{2i} + a_2 \Delta t_2 \\
+  v_{3f} &= v_{3i} + a_3 \Delta t_3 \\
+  v_{4f} &= v_{4i} + a_4 \Delta t_4
+\end{align}
+
+Le equazioni sembrano complicate però dai dati del problema è possibile determinare la velocità finale nella fase 1 e ricordando che la velocità finale di una fase coincide con quella iniziale della successiva potremmo scrivere\footnote{Per l'ultima fase le cose si semplificano ulteriormente visto che l'accelerazione è zero}
+\begin{align}
+  v_{1f} &= v_{1i} + a_1 \Delta t_1 \\
+  v_{2f} &= v_{1f} + a_2 \Delta t_2 \\
+  v_{3f} &= v_{2f} + a_3 \Delta t_3 \\
+  v_{4f} &= v_{3f}
+\end{align}
+
+Quindi, una volta calcolato $v_{1f}$, è possibile calcolare a cascata $v_{2f}$, $v_{3f}$ e $v_{4f}$. 
+
+Se volessimo esprimere tutto con i dati iniziali del problema basterebbe sostituire ogni espressione nella successiva
+\begin{align}
+  v_{1f} &= v_{1i} + a_1 \Delta t_1 \\
+  v_{2f} &= v_{1i} + a_1 \Delta t_1 + a_2 \Delta t_2 \\
+  v_{3f} &= v_{1i} + a_1 \Delta t_1 + a_2 \Delta t_2 + a_3 \Delta t_3 \\
+  v_{4f} &= v_{3f}
+\end{align}
+
+Le velocità iniziali e finali di ciascuna fase sono adesso univocamente determinate dai dati del problema.
+
+Per risolvere il punto successivo è necessario usare l'altra equazione che descrive la posizione del punto materiale sottoposto a una certa accelerazione costante: la legge oraria
+\begin{equation}
+  s = s_0 + v_0 (t-t_0) + \frac{1}{2} a (t-t_0)^2
+\end{equation}
+
+In maniera del tutto analoga a quanto abbiamo fatto prima possiamo determinare lo spazio percorso scrivendo la legge oraria per ciascuna fase
+\begin{align}
+  s_{1f} &= s_{1i} + v_{1i} \Delta t_1 + \frac{1}{2} a_1 \Delta t_1^2\\
+  s_{2f} &= s_{2i} + v_{2i} \Delta t_2 + \frac{1}{2} a_2 \Delta t_2^2\\
+  s_{3f} &= s_{3i} + v_{3i} \Delta t_3 + \frac{3}{2} a_3 \Delta t_3^2\\
+  s_{4f} &= s_{4i} + v_{4i} \Delta t_4 + \frac{4}{2} a_4 \Delta t_4^2
+\end{align}
+
+Come nel caso precedente possiamo dire che la posizione finale in una fase sarà la posizione iniziale dell'altra, ne consegue che
+\begin{align}
+  s_{1f} &= s_{2i} \\
+  s_{2f} &= s_{3i} \\
+  s_{3f} &= s_{4i}
+\end{align}
+e possiamo riscrivere le equazioni per le posizioni finali di ciascuna fase come\footnote{Possiamo anche scegliere un SDR in cui la posizione iniziale sia zero}\footnote{Utilizziamo anche il fatto che l'accelerazione nella fase 4 è zero}
+
+\begin{align}
+  s_{1f} &= v_{1i} \Delta t_1 + \frac{1}{2} a_1 \Delta t_1^2\\
+  s_{2f} &= s_{1f} + v_{2i} \Delta t_2 + \frac{1}{2} a_2 \Delta t_2^2\\
+  s_{3f} &= s_{2f} + v_{3i} \Delta t_3 + \frac{3}{2} a_3 \Delta t_3^2\\
+  s_{4f} &= s_{3f} + v_{4i} \Delta t_4
+\end{align}
+
+Al solito ci sono 4 relazioni però dobbiamo considerare il fatto che le velocità sono note (calcolabile dai dati iniziali) e che possiamo ricavare tutte le posizioni finali iniziando il calcolo da $s_{1f}$, che a sua volta permette di calcolare $s_{2f}$ che poi permette di calcolare $s_{3f}$ che poi permette infine di calcolare $s_{4f}$.
+
+Infine per determinare lo spostamento considerando tutte le fasi (variazione fra posizione finale e posizione iniziale) basterà fare la somma dei vari spostamenti\footnote{Abbiamo scelto un SDR in cui la posizione iniziale è zero}
+\begin{equation}
+  s = s_{4f} - s_{1i} = s_{4f}
+\end{equation}
+
+\textbf{Nota Bene} Gli spostamenti calcolati con la legge oraria potrebbero anche essere negativi, infatti, scelto un SDR, potrebbero essere opposti al verso in cui per convenzione la posizione aumenta. Nel nostro caso la fase di decelerazione potrebbe durare per un tempo sufficientemente lungo per cui la velocità da positiva (in un verso) diminuisce fino a diventare zero e poi negativa (aumenta nel verso opposto).
+
+
+\newpage
+\section*{Appendix}
+
+Alcune definizioni e abbreviazioni
+\begin{enumerate}
+  \item SDR = sistema di riferimento
+  \item MRU = moto rettilineo uniforme
+  \item MRUA = moto rettilineo uniformemente accelerato
+\end{enumerate}
+
+\subsection*{Legge oraria per il MRU}
+\begin{equation}
+  s = s_0 + v (t-t_0)
+\end{equation}
+
+\subsection*{Legge oraria per il MRUA}
+\begin{align}
+  s &= s_0 + v_0 (t-t_0) + \frac{1}{2} a (t-t_0)^2 \\
+  v &= v_0 + a (t-t_0)
+\end{align}
+
+\subsection*{Legge oraria con $\Vec{a}$ costante in 3d}
+\begin{align}
+  \Vec{s} &= \Vec{s}_0 + \Vec{v}_0 (t-t_0) + \frac{1}{2} \Vec{a} (t-t_0)^2 \\
+  \Vec{v} &= \Vec{v}_0 + \Vec{a} (t-t_0)
+\end{align}
+
+Ogni equazione può essere scomposta nelle sue componenti x, y e z.
+\begin{align}
+  s_x &= s_{0x} + v_{0x} (t-t_0) + \frac{1}{2} a_x (t-t_0)^2 \\
+  s_y &= s_{0y} + v_{0y} (t-t_0) + \frac{1}{2} a_y (t-t_0)^2 \\
+  s_z &= s_{0z} + v_{0z} (t-t_0) + \frac{1}{2} a_z (t-t_0)^2 \\
+  v_x &= v_{0x} + a_x (t-t_0) \\
+  v_y &= v_{0y} + a_y (t-t_0) \\
+  v_z &= v_{0z} + a_z (t-t_0)
+\end{align}
+\end{document}
