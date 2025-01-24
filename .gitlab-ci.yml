@@ -31,5 +31,5 @@ release_job:
     description: '$CI_COMMIT_TAG'
     assets:
       links:
-        - name: 'main.pdf'
+        - name: 'main-$CI_COMMIT_TAG.pdf'
           url: "https://gitlab.com/$CI_PROJECT_PATH/-/jobs/$JOB_ID/artifacts/file/main.pdf"
